@@ -1,0 +1,227 @@
+@textColor: #8a6f4d;
+@borderColor: #cecece;
+
+.sub-orderA {
+  .protocol {
+    text-align: center;
+    margin-top: -10px;
+    padding-bottom: 30px;
+    .agree {
+      color: #8d704f;
+      font-size: 24px;
+      display: inline;
+      >span {
+        text-decoration: underline;
+      }
+    }
+    input[type="checkbox"] {
+      display: inline-block;
+      vertical-align: middle;
+      margin-bottom: 3px;
+    }
+  }
+  
+
+  .bor-info {
+    margin-top: 25px;
+    background-color: #fff;
+    padding-left: 45px;
+    border-top: 1px solid @borderColor;
+    border-bottom: 1px solid @borderColor;
+    padding-top: 24px;
+    padding-bottom: 36px;
+
+    .info-title {
+      height: 55px;
+      line-height: 55px;
+      font-size: 30px;
+      padding-left: 15px;
+      font-weight: 400;
+      color: @textColor;
+      border-bottom: 1px solid @textColor;
+
+      >img {
+        width: 35px;
+        height: 30px;
+        margin-bottom: 7px;
+        margin-right: 20px;
+      }
+    }
+
+    .van-cell {
+      padding-top: 20px;
+      padding-bottom: 0;
+
+      input {
+        padding-right: 50px;
+        font-size: 24px;
+        height: 70px;
+      }
+    }
+
+    .van-hairline--top-bottom::after {
+      display: none;
+    }
+  }
+
+  .goods-info {
+    >.info-title {
+      >img {
+        width: 36px;
+        height: 36px;
+      }
+    }
+
+    .van-cell__title {
+      span {
+        display: inline-block;
+        width: 273px;
+        height: 52px;
+        background-color: #c39956;
+        color: #fff;
+        border-radius: 10px;
+        text-align: center;
+        line-height: 52px;
+      }
+    }
+
+    .van-icon {
+      line-height: 52px;
+
+      &::before {
+        transform: rotate(0deg);
+      }
+    }
+
+    .house {
+      .van-cell {
+        padding-bottom: 16px;
+        border-bottom: 1px solid #cecece;
+      }
+    }
+
+    .area {
+      border-bottom: 1px solid #cecece;
+
+      input {
+        color: @textColor;
+      }
+    }
+
+    .show-area {
+      .van-picker__toolbar {
+        height: 80px;
+        line-height: 80px;
+        padding: 0 30px;
+        border-bottom: 1px solid #f5f6f8;
+      }
+    }
+
+    .photo {
+      display: flex;
+      padding-top: 40px;
+
+      .item {
+        flex: 1;
+        margin-right: 45px;
+        text-align: center;
+
+        img {
+          width: 100%;
+          margin-bottom: 10px;
+        }
+      }
+
+      .file {
+        display: none;
+      }
+    }
+  }
+
+  .price-info {
+    >.info-title {
+      >img {
+        width: 42px;
+        height: 35px;
+      }
+    }
+
+    .p-price {
+      .van-field__body {
+        position: relative;
+
+        &::before {
+          content: '万元';
+          position: absolute;
+          right: 0;
+        }
+      }
+    }
+
+    .p-date {
+      .van-field__body {
+        position: relative;
+
+        &::before {
+          content: '个月';
+          position: absolute;
+          right: 0;
+        }
+      }
+    }
+
+  }
+
+  .submit-btn {
+    width: 90%;
+    background-color: #f79a19;
+    text-align: center;
+    line-height: 76px;
+    color: #fff;
+    margin: 36px auto;
+  }
+
+  .betAgree {
+    width: 90%;
+    border-radius: 10px;
+    padding: 60px 50px;
+    height: 80%;
+    >.contain {
+      height: 100%;
+      overflow: scroll;
+      >h2 {
+        font-size: 36px;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      >div {
+        font-size: 28px;
+        p {
+          margin-bottom: 20px;
+          text-indent: 56px;
+        }
+
+        .bold {
+          font-weight: bold;
+        }
+
+        .line {
+          text-decoration: underline;
+        }
+
+        .mt20 {
+          margin-top: 40px;
+        }
+      }
+
+      .fixed {
+        position: absolute;
+        right: 20px;
+        top: 10px;
+        width: 40px;
+        text-align: center;
+        font-size: 50px;
+      }
+    }
+  }
+}
