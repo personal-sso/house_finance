@@ -26,7 +26,7 @@
       <img src="../../../../assets/img/dispatch/property.png" width="100%" v-on:click="previewImg">
 
       <van-button square block type="primary" class="customer-but">联系客户</van-button>
-      <van-button square block type="primary" class="customer-but2">跟进处理</van-button>
+      <van-button square block type="primary" class="customer-but2" v-on:click="followUpHref">跟进处理</van-button>
     </div>
   </div>
 </template>
@@ -52,6 +52,9 @@
             // do something
           }
         });
+      },
+      followUpHref() {
+        this.$router.push('/user/dispatch/details/process')
       }
     }
   }

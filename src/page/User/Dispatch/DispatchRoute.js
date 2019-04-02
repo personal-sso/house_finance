@@ -1,6 +1,8 @@
 const AccountSet = () => import('./Dispatch.vue');
 const DispatchList = () => import('./DispatchList/DispatchList.vue');
 const DispatchDetails = () => import('./DispatchDetails/DispatchDetails.vue');
+const FollowUpProcess = () => import('./FollowUpProcess/FollowUpProcess.vue');
+
 
 export default {
   path: '/user/dispatch',
@@ -24,6 +26,14 @@ export default {
     component: DispatchDetails,
     meta: {
       title: '派单详情',
+      isLogin: true
+    },
+  }, {
+    name: 'FollowUpProcess',
+    path: '/user/dispatch/details/process',
+    component: FollowUpProcess,
+    meta: {
+      title: '跟进处理',
       isLogin: true
     },
   }]

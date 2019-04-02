@@ -261,7 +261,7 @@ export default {
           })
           .then(res => {
             this.$toast.clear();
-            if (res) {
+            if (res.code === '1') {
               this.$toast({
                 message: "注册成功！"
               });
@@ -300,8 +300,13 @@ export default {
                   });
                 }, 200);
               }
+            } else {
+              this.disabledBut = false;
+              this.$toast({
+                duration: 3000,
+                message: res.msg
+              });
             }
-            this.disabledBut = false;
           });
       }
     },

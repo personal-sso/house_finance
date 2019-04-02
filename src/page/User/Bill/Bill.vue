@@ -26,10 +26,15 @@
                 <p class="bill-description2">{{item['order_time']}}</p>
               </div>
 
-              <div class="flex flex-justify-between flex-align-center bill-between">
+              <div class="flex flex-justify-between flex-align-center bill-between" v-if="item['initial_review_status'] === 1">
                 <p class="bill-description">初评额度</p>
-                <p class="bill-description2">{{item['initial_review_amount']}}万</p>
+                <p class="bill-description2">{{(item['initial_review_amount']/10000).toFixed(2)}}万</p>
                 <p class="bill-description2">&nbsp;{{fmtDate(item['initial_review_time'])}}</p>
+              </div>
+
+              <div class="flex flex-justify-between flex-align-center bill-between" v-if="item['initial_review_status'] === 2">
+                <p class="bill-description">拒件</p>
+                <p class="bill-description2" style="color: #333;">{{item['initial_review_remark']}}</p>
               </div>
 
               <div class="flex desc-head" style="">

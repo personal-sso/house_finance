@@ -7,40 +7,121 @@
       enctype="multipart/form-data"
     >
       <div class="bor-info">
-        <h2 class="info-title">
+        <!-- <h2 class="info-title">
           <img
             src="../../../assets/img/home/list.png"
             alt=""
           >
           借款人信息
-        </h2>
+        </h2> -->
         <van-cell-group class="form">
           <van-field
+            v-model.trim="borPrice"
+            placeholder="请输入拟贷款金额 (万元)"
+            label="贷款金额"
+            class="bb p-price"
+            name="loan_amount"
+            type="number"
+            @input="changePrice"
+            input-align="right"
+          />
+          <van-field
+            v-model.trim="borDate"
+            placeholder="请输入拟贷款期限 (月)"
+            label="贷款期限"
+            input-align="right"
+            class="bb p-date"
+            name="borrowing_period"
+            @input="changeDate"
+            type="number"
+          />
+          <van-field
             v-model.trim="userName"
-            placeholder="请输入借款联系人姓名"
+            placeholder="请输入借款人姓名"
+            label="借款人姓名"
             class="bb"
+            input-align="right"
             name="borrower_name"
           />
           <van-field
             v-model.trim="userMobile"
-            placeholder="请输入借款联系人手机号码"
+            placeholder="请输入借款人手机号"
+            label="借款人手机号"
+            input-align="right"
             class="bb"
             name="borrower_mobile_number"
             type="number"
             maxlength="11"
           />
+          <van-field
+            v-model="city"
+            placeholder="请选择"
+            label="城市"
+            input-align="right"
+            readonly
+            is-link
+            @click="showArea"
+            name="city"
+            class="urban bb"
+          />
         </van-cell-group>
+        <div class="fast">
+          <h2 v-if="times !== 0">
+            <van-checkbox v-model="pitch">急速评估</van-checkbox>
+            <span>更快更准确的额度初评</span>
+          </h2>
+          <van-cell-group v-show="pitch" class="fast-assess">
+            <van-field
+              v-model="cityName"
+              placeholder="请输入楼盘名称"
+              label="楼盘名称"
+              input-align="right"
+              readonly
+              is-link
+              @click="goSearch"
+              name="houses_name"
+            />
+            <van-field
+              v-model="tower"
+              placeholder="选择"
+              label="楼栋"
+              input-align="right"
+              readonly
+              is-link
+              @click="showHouses"
+              name="buliding"
+            />
+            <van-field
+              v-model="number"
+              placeholder="选择"
+              label="房号"
+              input-align="right"
+              readonly
+              is-link
+              @click="showNum"
+              name="room_number"
+            />
+            <van-field
+              v-model="area"
+              placeholder="请输入"
+              label="建筑面积（㎡）"
+              input-align="right"
+              name="area"
+              type="number"
+            />
+          </van-cell-group>
+        </div>
       </div>
       <div class="bor-info goods-info">
-        <h2 class="info-title">
+        <!-- <h2 class="info-title">
           <img
             src="../../../assets/img/home/diya.png"
             alt=""
           >
           抵押物信息
-        </h2>
+        </h2> -->
         <van-collapse accordion>
-          <div
+          <!-- <div
             v-if="false"
             @click="houseAssess"
           >
@@ -49,14 +130,14 @@
               class="house"
             >
             </van-collapse-item>
-          </div>
-          <van-field
+          </div> -->
+          <!-- <van-field
             class="area"
             readonly
             v-model="areaValue"
             @click="showArea"
-          />
-          <van-popup
+          /> -->
+          <!-- <van-popup
             v-model="show"
             position="bottom"
             class="show-area"
@@ -66,8 +147,8 @@
               @cancel="closeArea"
               @confirm="changeArea"
             />
-          </van-popup>
-          <van-field
+          </van-popup> -->
+          <!-- <van-field
             v-model.trim="hAddress"
             placeholder="请输入房产地址"
             class="bb"
@@ -79,25 +160,26 @@
             class="bb"
             type="number"
             name="hourse_area"
-          />
+          /> -->
           <div class="photo">
+            <h2>请上传房产证照片：</h2>
             <div class="item">
               <img
-                src="../../../assets/img/home/update.png"
+                src="../../../assets/img/camera.png"
                 alt=""
                 @click="uploadFile"
                 id="imageA"
               >
-              <p>拟抵押的房产证图片1</p>
+              <p>房产权属信息内页</p>
             </div>
             <div class="item">
               <img
-                src="../../../assets/img/home/update.png"
+                src="../../../assets/img/add.png"
                 alt=""
                 @click="uploadFile"
                 id="imageB"
               >
-              <p>拟抵押的房产证图片2</p>
+              <p></p>
             </div>
             <input
               type="file"
@@ -118,15 +200,22 @@
           </div>
         </van-collapse>
       </div>
-      <div class="bor-info price-info">
-        <h2 class="info-title">
+      <div class="protocol">
+        <input
+          type="checkbox"
+          v-model="checked"
+        >
+        <p class="agree">勾选提交即代表同意且充分理解<span @click="showAgree">《居间服务协议》</span></p>
+      </div>
+      <!-- <div class="bor-info price-info"> -->
+        <!-- <h2 class="info-title">
           <img
             src="../../../assets/img/home/jiekuai.png"
             alt=""
           >
           借款信息
-        </h2>
-        <van-cell-group class="form">
+        </h2> -->
+        <!-- <van-cell-group class="form">
           <van-field
             v-model.trim="borPrice"
             placeholder="请输入拟借款金额"
@@ -143,18 +232,17 @@
             @input="changeDate"
             type="number"
           />
-        </van-cell-group>
-      </div>
+        </van-cell-group> -->
+      <!-- </div> -->
       <div
         class="submit-btn"
         @click="submit"
       >提交</div>
-      <div class="protocol">
-        <input type="checkbox" v-model="checked">
-        <p class="agree">我以阅读、理解并完全同意<span @click="showAgree">《平台居间服务协议》</span></p>
-      </div>
     </form>
-    <van-popup class="betAgree" v-model="isShowAgree">
+    <van-popup
+      class="betAgree"
+      v-model="isShowAgree"
+    >
       <div class="contain">
         <h2>居间协议</h2>
         <div>
@@ -279,13 +367,91 @@
           <P>14.3 本协议为甲乙双方合作的最终有效文本。本协议签订之前，甲乙双方就居间合作所签发的任何备忘录、电子通知、协议文本等，如与本协议存在任何冲突，其他文本自动失效，以本协议为准。</P>
           <p>14.4 本协议自双方签章后生效。本协议所称“以上”“以下”均包含本数。</p>
         </div>
-        <div class="fixed" @click="closeAgree">×</div>
+        <div
+          class="fixed"
+          @click="closeAgree"
+        >×</div>
       </div>
+    </van-popup>
+    <van-popup
+      v-model="isShowArea"
+      position="bottom"
+    >
+      <van-area
+        :area-list="areaList"
+        :columns-num="2"
+        @cancel="closeArea"
+        @confirm="changeArea"
+        :loading="loading1"
+      />
+    </van-popup>
+    <van-popup
+      class="search"
+      v-model="isSearch"
+      position="right"
+      :overlay="false"
+    >
+      <div id="searchPage">
+        <form action="/">
+          <van-search
+            v-model="searchValue"
+            placeholder="请输入搜索关键词"
+            show-action
+            shape="round"
+            @search="onSearch"
+          >
+            <div
+              slot="action"
+              @click="onSearch"
+            >搜索</div>
+          </van-search>
+        </form>
+        <van-button
+          class="cancelBtn"
+          type="button"
+          @click="closeSearch"
+        >取 消</van-button>
+        <ul
+          v-if="isOk"
+          class="list"
+        >
+          <li
+            v-for="(item) in cityList"
+            :key="item.ID"
+            @click="setCityName(item.Name,item.ID)"
+          >{{item.Name}}</li>
+          <p v-show="cityList.length === 0">很抱歉，没有查询出结果</p>
+        </ul>
+      </div>
+    </van-popup>
+    <van-popup
+      v-model="isShowHouses"
+      position="bottom"
+    >
+      <van-picker
+        show-toolbar
+        :columns="columns1"
+        @cancel="closeHouses"
+        @confirm="changeHouses"
+        :loading="loading2"
+      />
+    </van-popup>
+    <van-popup
+      v-model="isShowNum"
+      position="bottom"
+    >
+      <van-picker
+        show-toolbar
+        :columns="columns2"
+        @cancel="closeNum"
+        @confirm="changeNum"
+        :loading="loading3"
+      />
     </van-popup>
   </div>
 </template>
 <script>
-import {  CellGroup, Area, Toast, Dialog } from "vant";
+import { CellGroup, Area, Toast, Dialog,Search } from "vant";
 export default {
   data() {
     return {
@@ -297,87 +463,253 @@ export default {
       show: false,
       areaValue: "请选择拟抵押房产所在省市区",
       files: [],
-      area: null,
+      area: '',
       hAddress: "",
       hArea: "",
-      isShowAgree:false,
+      isShowAgree: false,
       base64Arr: [],
-      checked: false
+      checked: false,
+      pitch: false,
+      city:'',
+      cityName:'',
+      tower:'',
+      number: '',
+      isShowArea: false,
+      isSearch: false,
+      searchValue: "",
+      isOk: false,
+      isShowHouses: false,
+      columns1:[],
+      isShowNum: false,
+      columns2:[],
+      cityValue:[],
+      cityList: [],
+      housesId: "", //楼盘id
+      indexArray: [],
+      indexArray2: [],
+      buildingId: "", //楼栋id
+      numId: "", //房号id
+      times: "", //估价次数
+      defaultA: null,
+      defaultB: null,
+      loading1:true,
+      loading2:true,
+      loading3:true
     };
   },
   created() {
     // 获取城市列表
-    this.$axios.fetchPost("/getProvinceList",{pid:this.$route.params.id}).then(res => {
-      console.log(res);
-      this.areaList = res.data;
-    });
+    this.$axios
+      .fetchPost("/getCityList", {}, this.$cookie.get("token"))
+      .then(res => {
+        this.areaList = res.data;
+        this.loading1 = false;
+        this.times = res.count;
+        console.log(res);
+        // if(this.times <= 0){
+        //     this.$toast('您的急速评估次数不足，可以使用普通评估或完成任务获取更多次数');
+        // }
+      });
   },
   methods: {
-    houseAssess() {
-      Dialog.alert({
-        title: "温馨提示",
-        message: "功能完善中,敬请期待!"
-      }).then(() => {
-        // on close
+    // houseAssess() {
+    //   Dialog.alert({
+    //     title: "温馨提示",
+    //     message: "功能完善中,敬请期待!"
+    //   }).then(() => {
+    //     // on close
+    //   });
+    // },
+    goSearch() {
+      if (!this.city) {
+        this.$toast("请先选择城市");
+        return;
+      }
+      // this.$router.push({name:'searchPage',params:{id:this.cityValue[1].code},query:{name:123}});
+      this.isSearch = true;
+    },
+    setCityName(v, id) {
+      this.loading2 = true;
+      this.cityName = v;
+      this.closeSearch();
+      this.housesId = id;
+      this.$axios
+        .fetchPost(
+          "/getBuild",
+          { constructionId: id },
+          this.$cookie.get("token")
+        )
+        .then(res => {
+          console.log(res);
+          let housesArr = [];
+          let indexArr = [];
+          res.data.forEach(v => {
+            housesArr.push(v.Name);
+            indexArr.push(v.ID);
+          });
+          console.log(housesArr);
+          console.log(indexArr);
+          this.columns1 = housesArr;
+          this.loading2 = false;
+          this.indexArray = indexArr;
+        });
+    },
+    closeNum() {
+      this.isShowNum = false;
+    },
+    changeNum(v, i) {
+      console.log(v, i);
+      this.number = v;
+      this.numId = this.indexArray2[i];
+      this.closeNum();
+    },
+    closeHouses() {
+      this.isShowHouses = false;
+    },
+    changeHouses(v, i) {
+      this.loading3 = true;
+      console.log(v, i);
+      this.tower = v;
+      this.buildingId = this.indexArray[i];
+      this.closeHouses();
+      this.$axios
+        .fetchPost(
+          "/getHouse",
+          { buildingId: this.buildingId },
+          this.$cookie.get("token")
+        )
+        .then(res => {
+          console.log(res);
+          let housesArr = [];
+          let indexArr = [];
+          res.data.forEach(v => {
+            housesArr.push(v.Name);
+            indexArr.push(v.ID);
+          });
+          console.log(housesArr);
+          console.log(indexArr);
+          this.columns2 = housesArr;
+          this.loading3 = false;
+          this.indexArray2 = indexArr;
+        });
+    },
+    closeSearch() {
+      this.isSearch = false;
+    },
+    onSearch() {
+      const toast = this.$toast.loading({
+        duration: 0, // 持续展示 toast
+        forbidClick: true, // 禁用背景点击
+        mask: true,
+        message: "正在查询.."
       });
+      this.$axios
+        .fetchPost(
+          "/getConstruction",
+          { cityId: this.cityValue[1].code, houses_name: this.searchValue },
+          this.$cookie.get("token")
+        )
+        .then(res => {
+          console.log(res);
+          this.cityList = res.data;
+          toast.clear();
+          this.isOk = true;
+        });
+    },
+    showNum() {
+      if (!this.tower) {
+        this.$toast("请先选择楼栋");
+        return;
+      }
+      this.isShowNum = true;
+    },
+    showHouses() {
+      if (!this.cityName) {
+        this.$toast("请先选择楼盘名称");
+        return;
+      }
+      this.isShowHouses = true;
     },
     showArea() {
-      this.show = true;
+      this.isShowArea = true;
     },
     closeArea() {
-      this.show = false;
+      this.isShowArea = false;
     },
-    showAgree(){
+    showAgree() {
       this.isShowAgree = true;
     },
-    closeAgree(){
+    closeAgree() {
       this.isShowAgree = false;
     },
     changeArea(value) {
-      this.area = value;
-      let currentArea = "";
-      value.forEach((v, i) => {
-        currentArea += v.name;
-        if (i < value.length - 1) {
-          currentArea += "-";
+      console.log(value);
+      this.city = value[1].name;
+      this.isShowArea = false;
+      this.cityValue = value;
+    },
+    myVerify() {
+      if (!this.userName) {
+        this.$toast("请输入正确的借款人姓名");
+        return false;
+      }
+      let r = /^(0|86|17951)?(13[0-9]|15[012356789]|166|17[3678]|18[0-9]|14[57])[0-9]{8}$/;
+      if (!r.test(this.userMobile)) {
+        this.$toast("请输入正确的手机号");
+        return false;
+      }
+      if (!this.city) {
+        this.$toast("请选择正确的城市");
+        return false;
+      }
+      if(this.pitch){
+        if (!this.cityName) {
+          this.$toast("请选择正确的楼盘名称");
+          return false;
         }
-      });
-      this.areaValue = currentArea;
-      this.show = false;
+        if (!this.tower) {
+          this.$toast("请选择正确的楼栋");
+          return false;
+        }
+        if (!this.number) {
+          this.$toast("请选择正确的房号");
+          return false;
+        }
+        if (!this.area || this.area == 0) {
+          this.$toast("请输入正确的建筑面积");
+          return false;
+        }
+      }
+      
+      
+      return true;
     },
     submit() {
-      if (this.userName === "") {
-        Toast("借款联系人不能为空");
-        return;
-      }
-      if (this.userMobile === "") {
-        Toast("手机号码不能为空");
-        return;
-      }
-      let r = /^(0|86|17951)?(13[0-9]|15[012356789]|166|17[012356789]|18[0-9]|14[57])[0-9]{8}|$/;
-      if (!r.test(this.userMobile)) {
-        Toast("请输入合法的手机号");
-        return;
-      }
-      if (this.area === null) {
-        Toast("请选择拟抵押房产所在省市区");
-        return;
-      }
-      if (this.hAddress === "") {
-        Toast("房产地址不允许为空");
-        return;
-      }
-      if (this.hArea === "") {
-        Toast("房产面积不允许为空");
-        return;
-      }
-      if (
-        document.getElementById("uploadA").value == "" ||
-        document.getElementById("uploadB").value == ""
-      ) {
-        Toast("请上传房产证图片");
-        return;
-      }
+      // if (this.userName === "") {
+      //   Toast("借款联系人不能为空");
+      //   return;
+      // }
+      // if (this.userMobile === "") {
+      //   Toast("手机号码不能为空");
+      //   return;
+      // }
+      // let r = /^(0|86|17951)?(13[0-9]|15[012356789]|166|17[012356789]|18[0-9]|14[57])[0-9]{8}|$/;
+      // if (!r.test(this.userMobile)) {
+      //   Toast("请输入合法的手机号");
+      //   return;
+      // }
+      // if (this.area === null) {
+      //   Toast("请选择拟抵押房产所在省市区");
+      //   return;
+      // }
+      // if (this.hAddress === "") {
+      //   Toast("房产地址不允许为空");
+      //   return;
+      // }
+      // if (this.hArea === "") {
+      //   Toast("房产面积不允许为空");
+      //   return;
+      // }
       if (this.borPrice === "") {
         Toast("拟借款金额不允许为空");
         return;
@@ -386,23 +718,38 @@ export default {
         Toast("拟借款期限不允许为空");
         return;
       }
-      if(!this.checked) {
+      if (!this.myVerify()) {
+        return;
+      }
+      if (
+        document.getElementById("uploadA").value.length === 0 ||
+        document.getElementById("uploadB").value.length === 0
+      ) {
+        Toast("请上传房产证图片");
+        return;
+      }
+      
+      if (!this.checked) {
         Toast("请仔细阅读并勾选平台居间服务协议");
         return;
       }
       let fd = new FormData(document.getElementById("myForm"));
       console.log(this.base64Arr);
       let curArr = this.base64Arr.length;
-      for(let i = 0;i<curArr;i++){
+      for (let i = 0; i < curArr; i++) {
         fd.append("base64Arr", this.base64Arr[i]);
       }
 
-      fd.append("province", this.area[0].name);
-      fd.append("province_code", this.area[0].code);
-      fd.append("city", this.area[1].name);
-      fd.append("address", this.area[2].name);
+      fd.append("province", this.cityValue[0].name);
+      fd.append("provinceId", this.cityValue[0].code);
+      // fd.append("city", this.cityValue[1].name);
+      // fd.append("address", this.cityValue[2].name);
       fd.append("pid", this.$route.params.id);
-      fd.append("fk_city_id", this.area[1].code);
+      fd.append("cityId", this.cityValue[1].code);
+      fd.append("constructionId", this.housesId);
+      fd.append("buildingId", this.buildingId);
+      fd.append("houseId", this.numId);
+      fd.append("evaluation_type", this.pitch?1:2);
       Toast.loading({
         duration: 0,
         mask: true,
@@ -425,43 +772,52 @@ export default {
       }
     },
     changeURL(e) {
+      console.log(e);
+      console.log(e.target.files.length);
+      if(e.target.files.length === 0){
+        if(e.target.id === "uploadA") {
+          e.target.files = this.defaultA;
+        }
+        if(e.target.id === "uploadB") {
+          e.target.files = this.defaultB;
+        }
+      }
       let self = this;
+      if(e.target.id === "uploadA") {
+        this.defaultA = e.target.files;
+      }
+      if(e.target.id === "uploadB") {
+        this.defaultB = e.target.files;
+      }
       let newSrc = this.getObjectURL(e.target.files[0]);
-      console.log(e.target.files[0].size, "原图大小");
-      if(e.target.files[0].size/1024 > 10000){
-        Toast('上传图片过大，请重新选择图片');
+      // console.log(e.target.files[0].size, "原图大小");
+      if (e.target.files[0].size / 1024 > 10000) {
+        Toast("上传图片过大，请重新选择图片");
         return;
       }
-
-
 
       var queryImageA = document.getElementById("imageA");
       var queryImageB = document.getElementById("imageB");
 
       if (e.target.id === "uploadA") {
-
         let imgA = new Image();
         imgA.src = newSrc;
         imgA.onload = function() {
           let dataA = self.compress(imgA);
 
           queryImageA.src = dataA;
-          self.base64Arr = self.base64Arr.concat(dataA);
+          self.base64Arr[0] = dataA;
         };
-
       } else if (e.target.id === "uploadB") {
-
         let imgB = new Image();
         imgB.src = newSrc;
         imgB.onload = function() {
           let dataB = self.compress(imgB);
 
           queryImageB.src = dataB;
-          self.base64Arr = self.base64Arr.concat(dataB);
+          self.base64Arr[1] = dataB;
         };
       }
-
-
     },
     getObjectURL(file) {
       var url = null;
@@ -495,25 +851,25 @@ export default {
       ctx.drawImage(img, 0, 0, width, height);
 
       //进行最小压缩
-      let ndata = canvas.toDataURL("image/jpeg", 0.20);
+      let ndata = canvas.toDataURL("image/jpeg", 0.2);
       // console.log("*******压缩后的图片大小*******");
       // console.log(ndata)
       // console.log(ndata.length);
       return ndata;
     },
-    changePrice(){
-      if(this.borPrice == '') return;
-      if(this.borPrice<1){
+    changePrice() {
+      if (this.borPrice == "") return;
+      if (this.borPrice < 1) {
         this.borPrice = 1;
-      }else if(this.borPrice>500){
+      } else if (this.borPrice > 500) {
         this.borPrice = 500;
       }
     },
-    changeDate(){
-      if(this.borDate == '') return;
-      if(this.borDate<1){
+    changeDate() {
+      if (this.borDate == "") return;
+      if (this.borDate < 1) {
         this.borDate = 1;
-      }else if(this.borDate>24){
+      } else if (this.borDate > 24) {
         this.borDate = 24;
       }
     }
@@ -522,7 +878,8 @@ export default {
     [CellGroup.name]: CellGroup,
     [Area.name]: Area,
     [Toast.name]: Toast,
-    [Dialog.name]: Dialog
+    [Dialog.name]: Dialog,
+    [Search.name]: Search
   }
 };
 </script>
