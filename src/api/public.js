@@ -8,8 +8,8 @@ axIos.defaults.headers['X-Requested-With'] = 'XMLHttpRequest';
 // axIos.defaults.baseURL = 'http://192.168.102.142:8080/fgold-api/'; /*陈明金*/
 // axIos.defaults.baseURL = 'http://192.168.102.29:8080/fgold-api/';  /*Ben*/
 // axIos.defaults.baseURL = 'http://172.16.0.247:8080/fgold-api/'; /*测试*/
-axIos.defaults.baseURL = 'http://lodev.hsfinance.cn/fgold-api/'; /*测试*/
-// axIos.defaults.baseURL = 'http://fj.qkz88.com/fgold-api/'; /*生产*/
+// axIos.defaults.baseURL = 'http://lodev.hsfinance.cn/fgold-api/'; /*测试*/
+axIos.defaults.baseURL = 'http://fj.qkz88.com/fgold-api/'; /*生产*/
 
 // /*是否有请求正在刷新token*/
 // window.isRefreshing = false;

@@ -39,6 +39,7 @@
         this.$cookie.delete('ewm_path');
         this.$cookie.delete('userPhone');
         this.$cookie.delete('inventNum');
+        this.$cookie.delete('openID');
         this.$router.push({name:'homePage'});
       }
     }

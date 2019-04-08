@@ -82,7 +82,11 @@
    * @date 2019/1/24
    */
   import * as userPageApi from './userPageApi';
-
+  // {
+  //   item: '我的派单',
+  //     url: '/user/dispatch',
+  //   urlImg: require( '../../../assets/img/userPage/paidan.png'),
+  // },
   export default {
     name: 'UserPage',
     data() {
@@ -93,10 +97,6 @@
           item: '我的提单',
           url: '/user/bill',
           urlImg: require( '../../../assets/img/userPage/tidan.png'),
-        }, {
-          item: '我的派单',
-          url: '/user/dispatch',
-          urlImg: require( '../../../assets/img/userPage/paidan.png'),
         }, {
           item: '我的业绩',
           url: '/user/achievement',

@@ -81,15 +81,9 @@
    * @author 李凯明
    * @date 2019/4/1
   */
-  import { Timeline, TimelineItem, TimelineTitle } from 'vue-cute-timeline'
 
   export default {
     name: 'FollowUpProcess',
-    components: {
-      Timeline,
-      TimelineItem,
-      TimelineTitle
-    }
   }
 </script>
 

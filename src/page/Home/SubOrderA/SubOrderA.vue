@@ -204,8 +204,9 @@
         <input
           type="checkbox"
           v-model="checked"
+          id="checkbox"
         >
-        <p class="agree">勾选提交即代表同意且充分理解<span @click="showAgree">《居间服务协议》</span></p>
+        <p class="agree"><label for="checkbox">勾选提交即代表同意且充分理解</label><span @click="showAgree">《居间服务协议》</span></p>
       </div>
       <!-- <div class="bor-info price-info"> -->
         <!-- <h2 class="info-title">

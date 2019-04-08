@@ -9,14 +9,14 @@
           v-for="(item,index) in bannerList"
           :key="item.content"
         >
-          <a v-if="index==0" href="javascript:void(0);">
+          <a v-if="(!item.ld_fname)&&(!item.url)" href="javascript:void(0);">
             <img
               class="images"
               :src="item.src"
               alt=""
             >
           </a>
-          <a v-else-if="index==1" :href="item.url">
+          <a v-else-if="(!item.ld_fname)&&item.url" :href="item.url">
             <img
               class="images"
               :src="item.src"
@@ -35,7 +35,7 @@
     </div>
     <div class="notice-box">
       <img
-        src="../../../assets/img/home/notice.png"
+        src="../../../assets/img/home/headline.png"
         alt=""
       >
       <van-swipe
@@ -100,6 +100,10 @@
       </div>
     </div>
     <div class="nav">
+      <div class="nav-title">
+        <img src="../../../assets/img/home/helper.png" alt="">
+        赚钱助手
+      </div>
       <ul>
         <li
           v-for="item in getEntryList"
@@ -212,6 +216,14 @@
       bottom="70"
       duration="200"
     ></vueToTop>
+    <van-popup class="ticket" v-model="isShowTicket">
+      <div>
+        <a href="http://fj.qkz88.com/reg_activity/index.html">
+          <img src="../../../assets/img/ticket.png" alt="">
+        </a>
+        <van-icon name="close" @click="isShowTicket=false" />
+      </div>
+    </van-popup>
   </div>
 </template>
 
@@ -230,10 +242,15 @@ export default {
       uToken: "",
       isAuth: "",
       city: "",
-      uid: ""
+      uid: "",
+      isShowTicket: false,
     };
   },
   created() {
+    if(!this.$cookie.get('ticket')){
+      this.isShowTicket = true;
+      this.$cookie.set('ticket',6868,{ expires: 1 });
+    }
     // 获取当前定位城市
     // if (window.BMap) {
     //   var myCity = new BMap.LocalCity();

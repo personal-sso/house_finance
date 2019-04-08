@@ -226,7 +226,7 @@ export default {
         duration: 0, // 持续展示 toast
         forbidClick: true, // 禁用背景点击
         mask: true,
-        message: "正在估价.."
+        message: "正在评估.."
       });
       this.$axios
         .fetchPost(
@@ -263,6 +263,12 @@ export default {
       if (!this.myVerify()) {
         return;
       }
+      const toast = this.$toast.loading({
+        duration: 0, // 持续展示 toast
+        forbidClick: true, // 禁用背景点击
+        mask: true,
+        message: "正在评估.."
+      });
       this.$axios
         .fetchPost(
           "/houseEvaluation",
@@ -286,6 +292,7 @@ export default {
         )
         .then(res => {
           console.log(res);
+          toast.clear();
           this.$router.push({ name: "loading" });
         });
     },

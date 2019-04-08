@@ -121,6 +121,8 @@
             return '佣金提现冻结';
           case 1004:
             return '佣金提现解冻';
+          case 1005:
+            return '奖励';
           default:
         }
       },
@@ -134,6 +136,8 @@
             return require('../../../assets/img/capital/dongjie.png');
           case 1004:
             return require('../../../assets/img/capital/dongjie.png');
+          case 1005:
+            return require('../../../assets/img/capital/qian.png');
           default:
         }
       },
