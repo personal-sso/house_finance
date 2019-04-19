@@ -16,6 +16,16 @@
         </h2> -->
         <van-cell-group class="form">
           <van-field
+            v-model="product"
+            placeholder="请选择拟贷款产品"
+            label="贷款产品"
+            class="bb urban"
+            is-link
+            input-align="right"
+            readonly
+            @click="showProduct"
+          />
+          <van-field
             v-model.trim="borPrice"
             placeholder="请输入拟贷款金额 (万元)"
             label="贷款金额"
@@ -66,9 +76,11 @@
           />
         </van-cell-group>
         <div class="fast">
-          <h2 v-if="times !== 0">
-            <van-checkbox v-model="pitch">急速评估</van-checkbox>
-            <span>更快更准确的额度初评</span>
+          <h2>
+            <div v-if="isShowAssess">
+              <van-checkbox v-model="pitch">急速评估</van-checkbox>
+              <span>更快更准确的额度初评</span>
+            </div>
           </h2>
           <van-cell-group v-show="pitch" class="fast-assess">
             <van-field
@@ -384,6 +396,7 @@
         @cancel="closeArea"
         @confirm="changeArea"
         :loading="loading1"
+        :value="code"
       />
     </van-popup>
     <van-popup
@@ -449,6 +462,22 @@
         :loading="loading3"
       />
     </van-popup>
+    <van-popup v-model="isShowCity" class="city-list" :close-on-click-overlay="false">
+      <h2>请选择您所在的城市</h2>
+      <ul>
+        <li v-for="(item, index) in cityList2" :key="index" @click="selectCity(item)">
+          {{item.cName}}
+        </li>
+      </ul>
+    </van-popup>
+    <van-popup v-model="isShowProduct" position="bottom">
+      <van-picker
+        show-toolbar
+        :columns="columns3"
+        @cancel="closeProduct"
+        @confirm="changeProduct"
+      />
+    </van-popup>
   </div>
 </template>
 <script>
@@ -495,7 +524,16 @@ export default {
       defaultB: null,
       loading1:true,
       loading2:true,
-      loading3:true
+      loading3:true,
+      code:'',
+      isShowCity:true,
+      cityList2:[],
+      isShowAssess:false,
+      product:this.$route.query.product,
+      isShowProduct:false,
+      columns3:[],
+      productList:[],
+      productID:''
     };
   },
   created() {
@@ -503,6 +541,9 @@ export default {
     this.$axios
       .fetchPost("/getCityList", {}, this.$cookie.get("token"))
       .then(res => {
+        if(res.count !== 0){
+          this.isShowAssess = true;
+        }
         this.areaList = res.data;
         this.loading1 = false;
         this.times = res.count;
@@ -511,6 +552,65 @@ export default {
         //     this.$toast('您的急速评估次数不足，可以使用普通评估或完成任务获取更多次数');
         // }
       });
+
+      // 获取默认城市列表
+      this.cityList2 = [
+        {
+          cCode:'5101',
+          cName:'成都市',
+          pCode:'51',
+          pName:'四川省'
+        },
+        {
+          cCode:'3201',
+          cName:'南京市',
+          pCode:'32',
+          pName:'江苏省'
+        },
+        {
+          cCode:'3701',
+          cName:'济南市',
+          pCode:'37',
+          pName:'山东省'
+        },
+        {
+          cCode:'4201',
+          cName:'武汉市',
+          pCode:'42',
+          pName:'湖北省'
+        },
+        {
+          cCode:'3205',
+          cName:'苏州市',
+          pCode:'32',
+          pName:'江苏省'
+        },
+        {
+          cCode:'3702',
+          cName:'青岛市',
+          pCode:'37',
+          pName:'山东省'
+        },
+        {
+          cCode:'1201',
+          cName:'天津市(市辖区)',
+          pCode:'12',
+          pName:'天津市'
+        },
+      ];
+      // 获取产品
+      this.$axios.fetchPost('/getProductList2').then(res=>{
+        console.log(res);
+        let arr = [];
+        let arr2 = [];
+        res.data.forEach(v=>{
+          arr.push(v.p_name);
+          arr2.push(v.pid);
+        })
+        this.columns3 = arr;
+        this.productList = arr2;
+        this.productID = this.productList[this.$route.query.index];
+      })
   },
   methods: {
     // houseAssess() {
@@ -528,6 +628,35 @@ export default {
       }
       // this.$router.push({name:'searchPage',params:{id:this.cityValue[1].code},query:{name:123}});
       this.isSearch = true;
+    },
+    showProduct(){
+      this.isShowProduct = true;
+    },
+    changeProduct(v,i){
+      console.log(v,i);
+      this.product = v;
+      this.productID = this.productList[i];
+      this.closeProduct();
+    },
+    closeProduct(){
+      this.isShowProduct = false;
+    },
+    selectCity(value){
+      console.log(value);
+      this.city = value.cName;
+      this.isShowCity = false;
+      this.code = value.cCode;
+      this.cityValue = [
+        {
+          code:value.pCode,
+          name:value.pName
+        },
+        {
+          code:value.cCode,
+          name:value.cName
+        }
+      ];
+      console.log(this.cityValue)
     },
     setCityName(v, id) {
       this.loading2 = true;
@@ -711,6 +840,10 @@ export default {
       //   Toast("房产面积不允许为空");
       //   return;
       // }
+      if (this.product === "") {
+        Toast("贷款产品不允许为空");
+        return;
+      }
       if (this.borPrice === "") {
         Toast("拟借款金额不允许为空");
         return;
@@ -745,7 +878,7 @@ export default {
       fd.append("provinceId", this.cityValue[0].code);
       // fd.append("city", this.cityValue[1].name);
       // fd.append("address", this.cityValue[2].name);
-      fd.append("pid", this.$route.params.id);
+      fd.append("pid", this.productID);
       fd.append("cityId", this.cityValue[1].code);
       fd.append("constructionId", this.housesId);
       fd.append("buildingId", this.buildingId);

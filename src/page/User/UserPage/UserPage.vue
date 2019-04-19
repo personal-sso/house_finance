@@ -4,34 +4,41 @@
       <header class="user-header">
         <div class="flex flex-align-center">
           <img src="../../../assets/img/userPage/user.png" class="user-name-img">
-          <ul class="user-li-personal">
-            <li>
-              尊敬的:
-              <router-link to="user/cash" v-if="/^[1][0-9][0-9]{9}$/.test(this.userData.userName)">
-                {{this.userData.userName}}
-              </router-link>
-              <span v-if="!/^[1][0-9][0-9]{9}$/.test(this.userData.userName)">
+          <div class="flex flex-justify-between flex-align-center ly_width">
+            <ul class="user-li-personal">
+              <li>
+                <!--尊敬的:-->
+                <router-link to="user/cash" v-if="/^[1][0-9][0-9]{9}$/.test(this.userData.userName)">
+                  {{this.userData.userName}}
+                </router-link>
+                <span v-if="!/^[1][0-9][0-9]{9}$/.test(this.userData.userName)">
                 {{this.userData.userName}}
               </span>
-            </li>
-            <!--<li>会员积分：&nbsp;{{this.userData['availableIntegral']}}</li>-->
-          </ul>
+              </li>
+              <!--<li>会员积分：&nbsp;{{this.userData['availableIntegral']}}</li>-->
+            </ul>
+
+            <!-- <div v-on:click="hrefRolesFun">
+              <span class="color-ad824b">{{this.userData.userRoleName}}</span>
+              <i class="exclamatory-mark">!</i>
+            </div> -->
+          </div>
         </div>
         <div class="user-wrap">
           <div class="my-account">
-            <div class="flex flex-align-baseline balance">
+            <div class="balance">
               <p class="user-commission user-com-width">佣金账户余额（元）</p>
-              <p class="user-commission">{{this.userData.available}}</p>
+              <p class="user-commission commission-balance">{{this.userData.available}}</p>
             </div>
 
             <div class="flex">
-              <div class="flex-row user-com-width user-com-line">
+              <div class="flex-row">
+                <p class="user-money-p user-com-width margin-bottom-25">邀请合伙人</p>
+                <p class="user-money-p2">{{this.userData.inveteCount}}人</p>
+              </div>
+              <div class="flex-row user-com-line">
                 <p class="user-money-p margin-bottom-25">累计赚取佣金（元）</p>
                 <p class="user-money-p2">{{this.userData.historyAvailable}}</p>
-              </div>
-              <div class="flex-row">
-                <p class="user-money-p margin-bottom-25">邀请合伙人</p>
-                <p class="user-money-p2">{{this.userData.inveteCount}}人</p>
               </div>
             </div>
           </div>
@@ -76,17 +83,18 @@
   //     url: '/user/bill',
   //   urlImg: require( '../../../assets/img/userPage/guanyu.png'),
   // }
+  // {
+  //   item: '我的派单',
+  //     url: '/user/dispatch',
+  //   urlImg: require( '../../../assets/img/userPage/paidan.png'),
+  // },
   /**
    * @Description:
    * @author 李凯明
    * @date 2019/1/24
    */
   import * as userPageApi from './userPageApi';
-  // {
-  //   item: '我的派单',
-  //     url: '/user/dispatch',
-  //   urlImg: require( '../../../assets/img/userPage/paidan.png'),
-  // },
+
   export default {
     name: 'UserPage',
     data() {
@@ -137,7 +145,8 @@
           item: '账户设置',
           url: '/user/account',
           urlImg: require( '../../../assets/img/userPage/renyuanleixing-gongsizhiyuan.png'),
-        }, ]
+        }, ],
+        // rolesUrl: `user/roles?role=${this.userData.userRole}`,
       };
     },
     beforeCreate() {
@@ -152,7 +161,9 @@
       });
     },
     methods: {
-
+      hrefRolesFun() {
+        this.$router.push(`user/roles?role=${this.userData.userRole}`)
+      }
     }
   }
 </script>

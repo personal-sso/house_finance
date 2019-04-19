@@ -1,155 +1,101 @@
 .achievement {
-  //height: 100vh;
-  height: 100vh;
-  background-color: #fff;
   header {
-    height: 188px;
-    background-color: #f9f6f2;
-    padding: 50px 50px;
+    background: url('../../../assets/achievement/bg.png') no-repeat;
+    background-size: cover;
+    height: 315px;
+    ul {
+      padding: 60px 0;
+    }
+    ul li {
+      color: #ffffff;
+      font-size: 26px;
+      margin-right: 55px;
+      p {
+        padding-bottom: 36px;
+      }
+    }
+    ul li:last-child {
+      margin-right: 0;
+    }
+    .nav-but-wrap {
+      margin: 0 39px;
+    }
+    .nav-but {
+      background-color: #ffffff;
+      color: #0388e9;
+      width: 160px;
+      height: 55px;
+      line-height: 55px;
+      border-radius: 50px;
+    }
   }
-  header ul li {
-    color: #8b6f4e;
-    font-size: 30px;
-    font-weight: bold;
-  }
-  .btn-money {
-    width: 145px;
-    height: 55px;
-    line-height: initial;
-    background-color: #f79a19;
-    color: #ffffff;
-  }
-  .ti-xian {
-    width: 27px;
-    height: 29px;
-    vertical-align: text-top;
-    margin-right: 10px;
-  }
-  .van-button--normal {
-    font-size: 18px;
-  }
-  .achievement-money {
-    color: #8b6f4e;
-    font-size: 24px;
-    margin-right: 252px;
-  }
-  .achievement-money p:first-child {
-    //flex: 0.86;
-  }
-  .van-cell {
-    padding: 25px 45px 20px 45px;
-  }
-  .ming-xi {
-    width: 36px;
-    height: 36px;
-  }
-  .achievement-detailed {
-    font-size: 28px;
-    color: #8b6f4e;
-    vertical-align: middle;
-    margin-left: 20px;
-  }
-  [class*=van-hairline] {
-    position: relative;
-  }
-  .van-cell__left-icon, .van-cell__right-icon {
-    line-height: 40px;
-  }
-  .van-cell__title, .van-cell__value {
-    flex: 0.91;
-  }
-  .van-cell--clickable:active {
-    background-color: #ffffff;
-  }
-  .qian {
-    width: 24px;
-    height: 30px;
-    vertical-align: middle;
-    margin-right: 10px;
-  }
-  .van-collapse-item__content {
-    font-size: 24px;
-  }
-  .van-collapse-item__content {
-    padding: 0 0 22px 45px;
-  }
-  .achievement-item {
-    margin: 20px 66px 20px 0;
-    color: #8b6f4e;
-    background-color: #f9f6f2;
-    height: 45px;
-    line-height: 45px;
-    padding-left: 15px;
-  }
-  .achievement-ul-wrap {
-    padding-left: 15px;
-    color: #323232;
-    margin-right: 66px;
-  }
-  .achievement-ul-wrap li {
-    margin: 10px 0;
-  }
-  .van-collapse-item {
-    background-color: #ffffff;
-    //margin-bottom: 20px;
-    border-top: 2px solid #cecece;
-    //border-bottom: 2px solid #cecece;
+  .leader-wrap li:last-child {
     border-bottom: none;
   }
-  .van-tabs--line {
-    padding-top: 0;
+  .leader-wrap {
+    background-color: #ffffff;
+    li {
+      height: 113px;
+      margin: 0 23px;
+      border-bottom: 2px solid #d9d9d9;
+      .user-icon {
+        width: 21px;
+        height: 25px;
+        margin-right: 12px;
+      }
+      .telephone-but {
+        width: 200px;
+        height: 54px;
+        line-height: 54px;
+        background-color: #1ac462;
+        border-radius: 50px;
+        color: #ffffff;
+        text-align: center;
+        .phone-icon {
+          width: 27px;
+          height: 27px;
+          margin-right: 8px;
+        }
+      }
+    }
   }
-  [class*=van-hairline]::after {
-    border: none;
+  .dialog-ul {
+    margin: 35px 47px 0 47px;
+    li {
+      margin-bottom: 20px;
+    }
   }
-  .van-tabs--line .van-tabs__wrap {
-    height: 88px;
+  .van-dialog {
+    width: 424px;
+    min-height: 484px;
+    border-radius: 10px;
   }
-  .achievement-tab1-wrap {
-    color: #8b6f4e;
-    text-align: left;
-    height: 88px;
-    padding-left: 20px;
+  .van-dialog__header {
+    font-size: 35px;
+    color: #000000;
+    padding: 35px 0;
   }
-  .achievement-tab1-bill {
-    line-height: initial;
-    padding: 11px;
-    vertical-align: middle;
-    font-size: 24px;
-  }
-  .van-tab--active {
-    background: -webkit-linear-gradient(#f8f5ef, #dac496);
-    background: -o-linear-gradient(#f8f5ef, #dac496);
-    background: -moz-linear-gradient(#f8f5ef, #dac496);
-    background: linear-gradient(#f8f5ef, #dac496);
-  }
-  .van-tab {
-    background-color: #f9f6f2;
-  }
-  .van-tabs__line {
-    height: 0;
-    background-color: inherit;
-  }
-  .van-tab:last-child {
-    margin-left: 12px;
-  }
-  .van-tabs--line .van-tabs__wrap {
-    border-bottom: 2px solid #8b6f4e;
-  }
-  .van-tabs__nav--line {
-    padding-right: 45px;
-  }
-  .van-cell__right-icon {
-    display: none;
-  }
-  .bill-not-data {
-    font-size: 24px;
-    color: #999;
+  .van-dialog__content {
     text-align: center;
-    margin-top: 200px;
+  }
+  .icon-but {
+    width: 345px;
+    height: 57px;
+    line-height: 57px;
+    background-color: #1ac462;
+    color: #ffffff;
+    border-radius: 2px;
+    margin: 55px 0;
   }
   ._v-container[data-v-ecaca2b0] {
     position: relative;
-    height: 68vh !important;
+    //min-height: 350px;
+  }
+  .mescroll {
+    position: fixed;
+    //top: 624px; /* pc */
+    top: 529px; /* 移动*/
+    bottom: 0;
+    height: auto;
   }
 }

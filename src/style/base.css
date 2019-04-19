@@ -453,3 +453,32 @@ html {
 .color-000 {
   color: #000000;
 }
+.ft-32 {
+  font-size: 32px;
+}
+.color-9a672b {
+  color: #9a672b;
+}
+.width-136 {
+  width: 136px;
+  margin-right: 36px;
+}
+.width-96 {
+  width: 96px;
+  margin-right: 36px;
+}
+.width-35 {
+  width: 35%;
+}
+.width-32 {
+  width: 32%;
+}
+.mescroll-downwarp .downwarp-progress, .mescroll-upwarp .upwarp-progress {
+  display: inline-block !important;
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 50% !important;
+  border: 2px solid gray !important;
+  border-bottom-color: transparent !important;
+  vertical-align: middle !important;
+}

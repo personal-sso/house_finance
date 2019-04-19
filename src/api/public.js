@@ -8,8 +8,8 @@ axIos.defaults.headers['X-Requested-With'] = 'XMLHttpRequest';
 // axIos.defaults.baseURL = 'http://192.168.102.142:8080/fgold-api/'; /*陈明金*/
 // axIos.defaults.baseURL = 'http://192.168.102.29:8080/fgold-api/';  /*Ben*/
 // axIos.defaults.baseURL = 'http://172.16.0.247:8080/fgold-api/'; /*测试*/
-// axIos.defaults.baseURL = 'http://lodev.hsfinance.cn/fgold-api/'; /*测试*/
-axIos.defaults.baseURL = 'http://fj.qkz88.com/fgold-api/'; /*生产*/
+axIos.defaults.baseURL = 'http://lodev.hsfinance.cn/fgold-api/'; /*测试*/
+// axIos.defaults.baseURL = 'http://fj.qkz88.com/fgold-api/'; /*生产*/
 
 // /*是否有请求正在刷新token*/
 // window.isRefreshing = false;
@@ -103,6 +103,7 @@ export default {
           duration: 2000,
           message: '登录失效，请重新登录'
         });
+
       } else {
         Toast({
           duration: 2000,
@@ -160,6 +161,18 @@ export default {
               message: res.data.msg
             });
           }
+        }else if(res.data.code === '-9'){
+          Toast({
+            duration: 2000,
+            message: '登录失效，请重新登录'
+          });
+          VueCookies.delete('token');
+          VueCookies.delete('uid');
+          VueCookies.delete('isAuth');
+          VueCookies.delete('ewm_path');
+          VueCookies.delete('userPhone');
+          VueCookies.delete('inventNum');
+          router.push('loginRegister');
         } else {
           resolve(res.data);
         }
@@ -169,7 +182,7 @@ export default {
     });
     return fetchPostPromise.catch(err => {
       // console.log(err)
-      if (err.code === '-1') {
+      if (err.code === '-9') {
         Toast({
           duration: 2000,
           message: '登录失效，请重新登录'
@@ -243,7 +256,7 @@ export default {
     ];
     options.headers = {
       'Content-Type': 'application/x-www-form-urlencoded',
-      token: options.token || ' '
+      token: options.token || ''
     };
 
     return axIos(options)

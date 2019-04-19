@@ -2,6 +2,7 @@
 @borderColor: #cecece;
 .home-page {
   padding-bottom: 95px;
+  background-color: #f5f5f6;
   .slide {
     height: 275px;
     background-color: #eee;
@@ -56,32 +57,45 @@
     }
   }
   .spread {
-    background-color: #fff;
-    padding: 20px 20px 0 0;
+    background-color: #f5f5f6;
+    padding: 5px 20px;
     display: flex;
     flex-flow: row wrap;
     align-content: flex-start;
-    min-height: 416px;
-    margin-top: 14px;
-    margin-bottom: 14px;
-    
+    margin-top: 15px;
+    margin-bottom: 15px;
+    .big-box {
+      min-height: 330px;
+      width: 100%;
+    }
     .sBottom {
       box-sizing: border-box;
-      flex: 0 0 50%;
+      width: 100%;
+      background-color: #fff;
+      margin-bottom: 15px;
       a {
-        display: block;
-        margin-left: 20px;
-        margin-bottom: 20px;
-        background-color: #f6f6f7;
-        min-height: 175px;
-        border-radius: 10px;
-        // height: 177.9px;
-
-      }
-      .images {
-        display: block;
+        display: flex;
+        height: 150px;
+        border-radius: 5px;
         width: 100%;
+        justify-content: space-between;
+        .images {
+          display: block;
+          height: 100%;
+          width: 275px;
+        }
+        .s-text {
+          flex: 1;
+          padding: 20px;
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          p {
+            width: 100%;
+          }
+        }
       }
+      
 
       // &:nth-child(even) {
       //   a {
@@ -90,6 +104,14 @@
       // }
 
       
+    }
+    .van-button {
+      width: 100%;
+      height: 88px;
+      border-radius: 44px;
+      background: linear-gradient(to bottom,#ff8900,#ff7000);
+      color: #fff;
+      font-size: 32px;
     }
   }
   .nav {

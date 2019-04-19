@@ -32,7 +32,7 @@ npm test
 1234
 
 # 测试登录账户 //Ben
-13660634848   15779797655
+13660634848   15779797655   13771904756  13654656565
 1234
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).

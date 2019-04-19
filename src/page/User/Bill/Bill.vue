@@ -140,7 +140,13 @@
           req_order_count: '',
           isActive: false,
           status: '10001',
-        },]
+        }, {
+          text: '已结束',
+          num: '',
+          eol_order_count: '',
+          isActive: false,
+          status: '10004',
+        }]
       };
     },
     mounted() {

@@ -1,99 +1,107 @@
 <template>
   <div class="achievement">
     <header>
-      <ul class="flex flex-align-center flex-justify-between">
-        <li>当前佣金余额(元)</li>
-        <li>{{achievementData['available']}}</li>
-        <li>
-          <van-button type="default" class="btn-money" v-on:click="butWithdrawal">
-            <img src="../../../assets/achievement/tixian.png" class="vertical-align-middle ti-xian">
-            <span class="vertical-align-middle">提现</span>
-          </van-button>
+      <ul class="flex flex-align-center flex-justify-center">
+        <li class="text-ag-center">
+          <router-link to="/user/achievement/detail">
+            <p>下级人数</p>
+            <strong>{{data['totalCount']}}</strong>
+          </router-link>
+        </li>
+
+        <li class="text-ag-center">
+          <p>提单总数</p>
+          <strong>{{data['totalOrderCount']}}</strong>
+        </li>
+
+        <li class="text-ag-center">
+          <router-link to="/user/achievement/commission">
+            <p>放款总额(元)</p>
+            <strong>{{data['totalActualLoanAmount']}}</strong>
+          </router-link>
+        </li>
+
+        <li class="text-ag-center">
+          <router-link to="/user/achievement/commission">
+            <p>佣金总额(元)</p>
+            <strong>{{data['totalCommissionAmount']}}</strong>
+          </router-link>
         </li>
       </ul>
 
-      <div class="flex flex-align-center flex-justify-between achievement-money">
-        <p>累计赚取佣金(元)</p>
-        <p>{{achievementData['history_available']}}</p>
+      <div class="flex flex-justify-between nav-but-wrap">
+        <van-button type="default" class="nav-but">邀请</van-button>
+        <router-link to="/user/commission">
+          <van-button type="default" class="nav-but">
+            提现
+          </van-button>
+        </router-link>
       </div>
     </header>
 
-    <main>
-      <van-collapse v-model="activeNames">
-        <van-collapse-item name="1" disabled>
-          <div slot="title">
-            <img src="../../../assets/achievement/mingxi.png" class="ming-xi">
-            <span class="achievement-detailed">佣金明细</span>
-          </div>
+    <ul class="leader-wrap">
+      <li class="flex flex-align-center">
+        <img src="../../../assets/achievement/user.png" class="user-icon">
+        <p class="width-35">我的上级</p>
+        <p class="color-9a672b width-32">{{this.data['mySuperior']}}</p>
+        <a :href="'tel:'+data['mySuperiorMobile']" class="telephone-but">
+          <img src="../../../assets/achievement/phone.png" class="phone-icon">
+          <span>电话联系</span>
+        </a>
+      </li>
 
-          <scroller
-            :on-refresh="refresh"
-            :on-infinite="infinite"
-            noDataText="没有更多数据"
-            ref="achievementScroller"
-            class="achievement-scroller"
-          >
-            <van-tabs
-              v-model="active"
-              animated
-              v-on:change="switchCommission"
-            >
-              <van-tab>
-                <div slot="title" class="achievement-tab1-wrap">
-                  <img src="../../../assets/achievement/qian.png" class="qian">
-                  <div class="inline-block achievement-tab1-bill">
-                    <strong>我的提单</strong>
-                    <p>共{{achievementData['commission_amount']}}元</p>
-                  </div>
-                </div>
+      <li class="flex flex-align-center">
+        <img src="../../../assets/achievement/user.png" class="user-icon">
+        <p class="width-35">我的房金经理</p>
+        <p class="color-9a672b width-32">{{data['myHc']}}</p>
+        <a :href="'tel:'+data['myHcMobile']" class="telephone-but">
+          <img src="../../../assets/achievement/phone.png" class="phone-icon">
+          <span>电话联系</span>
+        </a>
+      </li>
+    </ul>
 
-                <div class="flex flex-justify-start achievement-item">
-                  <p class="flex-1">借款人</p>
-                  <p class="flex-1">放款日期</p>
-                  <p class="flex-1">放款金额</p>
-                  <p class="flex-1">赚取佣金</p>
-                </div>
+    <div ref="achievementMescroll" class="mescroll">
+      <div ref="achievementScroll" id="scrollWrap">
+        <performanceList
+          @showIconDescription="showIconDescription"
+          v-bind:partnerArr="arr"
+        />
+      </div>
+    </div>
 
-                <ul class="achievement-ul-wrap">
-                  <li class="flex flex-justify-start" v-for="(item, index) in list" :key="index">
-                    <p class="flex-1">{{item.name}}</p>
-                    <p class="flex-1">{{item['loan_date']}}</p>
-                    <p class="flex-1">{{item['loan_amount']}}万元</p>
-                    <p class="flex-1">{{item['commission_amount']}}元</p>
-                  </li>
-                </ul>
-              </van-tab>
+    <van-dialog
+      v-model="show"
+      title="图标说明"
+      :show-confirm-button="false"
+      :show-cancel-button="false"
+      block
+    >
+      <ul class="dialog-ul">
+        <li class="flex flex-align-center flex-justify-between">
+          <img src="../../../assets/achievement/icon_fang2.png" class="commission-icon2">
+          <p>房金市场经理</p>
+        </li>
+        <li class="flex flex-align-center flex-justify-between">
+          <img src="../../../assets/achievement/icon_zhi2.png" class="commission-icon2">
+          <p>直营业务员</p>
+        </li>
+        <li class="flex flex-align-center flex-justify-between">
+          <img src="../../../assets/achievement/icon_yuan2.jpg" class="commission-icon2">
+          <p>公司员工</p>
+        </li>
+        <li class="flex flex-align-center flex-justify-between">
+          <img src="../../../assets/achievement/icon_one2.jpg" class="commission-icon2">
+          <p>一级经纪人</p>
+        </li>
+        <li class="flex flex-align-center flex-justify-between">
+          <img src="../../../assets/achievement/icon_two2.jpg" class="commission-icon2">
+          <p>二级经纪人</p>
+        </li>
+      </ul>
 
-              <van-tab>
-                <div slot="title" class="achievement-tab1-wrap">
-                  <img src="../../../assets/achievement/qian.png" class="qian">
-                  <div class="inline-block achievement-tab1-bill">
-                    <strong>合伙人提单</strong>
-                    <p>共{{achievementData['partner_commission_amount']}}元</p>
-                  </div>
-                </div>
-
-                <div class="flex flex-justify-start achievement-item">
-                  <p class="flex-1">借款人</p>
-                  <p class="flex-1">放款日期</p>
-                  <p class="flex-1">放款金额</p>
-                  <p class="flex-1">赚取佣金</p>
-                </div>
-
-                <ul class="achievement-ul-wrap">
-                  <li class="flex flex-justify-start" v-for="(item, index) in list" :key="index">
-                    <p class="flex-1">{{item.name}}</p>
-                    <p class="flex-1">{{item['loan_date']}}</p>
-                    <p class="flex-1">{{item['loan_amount']}}万</p>
-                    <p class="flex-1">{{item['commission_amount']}}元</p>
-                  </li>
-                </ul>
-              </van-tab>
-            </van-tabs>
-          </scroller>
-        </van-collapse-item>
-      </van-collapse>
-    </main>
+      <van-button type="default" class="icon-but" v-on:click="showIconDescription">知道了</van-button>
+    </van-dialog>
   </div>
 </template>
 
@@ -103,77 +111,99 @@
    * @author 李凯明
    * @date 2019/2/22
   */
+
+  import MeScroll from 'mescroll.js';
+  import 'mescroll.js/mescroll.min.css'
   import * as achievementApi from './achievementApi';
+  import performanceList from '../../../components/performanceList';
 
   export default {
     name: 'Achievement',
+    components: {
+      performanceList,
+    },
     data() {
       return {
-        active: 2,
-        achievementData: {
-          commissions: []
+        show: false,
+        data: {
+          myHc: '',
+          myHcMobile: '',
+          mySuperior: '',
+          mySuperiorMobile: '',
+          totalActualLoanAmount: '',
+          totalCommissionAmount: '',
+          totalCount: '',
+          totalOrderCount: '',
         },
-        activeNames: ['1', '2'],
-        list: [],
+        arr: [],
         page: 0,
-        total: true,
-        achievementStr: '',
+        total: true
       };
     },
-    methods: {
-      refresh(done) {
-        this.postMyAchievement(done);
-      },
-      infinite(done) {
-        // 数据全部加载完成
-        console.log(this.list.length, this.total)
-        if(this.list.length >= this.total) {
-          this.$refs.achievementScroller.finishInfinite(true);
-          return
-        }
-        achievementApi.myAchievement({type: this.achievementStr, start: ++this.page}, this.$cookie.get('token')).then(res => {
-          this.achievementData = res.data;
-          this.total = res.data['total'];
-          res.data['commissions'].forEach((item) => {
-            this.list.push(item);
-          });
-          done()
-        });
-      },
-      /*
-       获取我的业绩列表
-       */
-      postMyAchievement(done) {
-        this.page = 1;
-        if(done === undefined) {
-          this.$refs.achievementScroller.triggerPullToRefresh();
-          return;
-        }
-        achievementApi.myAchievement({type: this.achievementStr, start: this.page}, this.$cookie.get('token')).then(res => {
-          this.achievementData = res.data;
-          this.total = res.data['total'];
-          this.list = res.data['commissions'];
-          this.$refs.achievementScroller.finishInfinite(false);
-          if(done !== undefined) {
-            done();
+    mounted() {
+      this.achievementMescroll = new MeScroll(this.$refs.achievementMescroll, {
+        down: {
+          auto: false,
+          callback: this.downCallback,
+        },
+        up: {
+          auto: true,
+          callback: this.upCallback,
+          htmlNodata: '<p class="upwarp-nodata">---- 老底都被你看到啦 ----</p>',
+          loadFull: {
+            use: false,
+            delay: 500
           }
+        },
+      });
+
+      achievementApi.myAchievementNew({}, this.$cookie.get('token')).then(res => {
+        Object.assign(this.data, res.data);
+      });
+    },
+    methods: {
+      showIconDescription() {
+        this.show = !this.show;
+      },
+
+      downCallback() {
+        achievementApi.myPartnerNew({start: 1}, this.$cookie.get('token')).then(res => {
+          this.page = 1;
+          this.total = res.data['total'];
+          this.arr = res.data['myPartners'];
+          this.$nextTick(() => {
+            if(this.arr.length >= this.total) {
+              this.achievementMescroll.endUpScroll(true);
+              this.achievementMescroll.endSuccess();
+            } else {
+              this.achievementMescroll.endSuccess(res.data['myPartners'].length, true);
+            }
+            // if(this.$refs.achievementScroll.offsetHeight < 568) {
+            //   this.achievementMescroll.triggerUpScroll();
+            // }
+          })
         });
       },
-      switchCommission(index) {
-        if(index === 1) {
-          this.achievementStr = 'partner';
-        } else {
-          this.achievementStr = '';
-        }
-        this.refresh();
-      },
-      butWithdrawal() {
-        if(this.$cookie.get('isAuth') === 'true') {
-          this.$router.push('/user/commission')
-        } else {
-          this.$router.push('/user/cash')
-        }
-      },
+
+      upCallback() {
+        achievementApi.myPartnerNew({start: ++this.page}, this.$cookie.get('token')).then(res => {
+          this.total = res.data['total'];
+          res.data['myPartners'].forEach((item) => {
+            this.arr.push(item);
+          });
+          this.$nextTick(() => {
+            this.achievementMescroll.endSuccess();
+            // if(this.$refs.achievementScroll.offsetHeight < 568) {
+            //   this.achievementMescroll.triggerUpScroll();
+            // }
+            if(this.arr.length >= this.total) {
+              this.achievementMescroll.endUpScroll(true)
+            } else {
+              this.achievementMescroll.endUpScroll(false)
+            }
+          })
+        });
+      }
     }
   }
 </script>

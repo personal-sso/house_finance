@@ -1,7 +1,7 @@
 <template>
   <div class="register-success">
     <div class="bgImg">
-      <img class="images" src="../../../assets/img/sucBG.jpg" alt="">
+      <img class="images" src="../../../assets/img/sucBG.png" alt="">
     </div>
     <div class="message">
       <div class="item">
@@ -19,7 +19,7 @@
         </div>
         <div class="text">
           <p class="t-top">零成本，高佣金</p>
-          <p class="t-bottom">最高3%房款佣金</p>
+          <p class="t-bottom">最高3%放款佣金</p>
         </div>
       </div>
     </div>
@@ -34,7 +34,7 @@
     </div>
     <div class="link">
       <van-button class="smrz" size="large" @click="goBank">实名认证</van-button>
-      <router-link to="/">我在逛逛</router-link>
+      <router-link to="/">我再逛逛</router-link>
     </div>
   </div>
 </template>

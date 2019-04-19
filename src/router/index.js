@@ -92,9 +92,9 @@ router.beforeEach((to, from, next) => {
       return;
     }
   }
-  if(to.name == 'productBrief'){
-    to.meta.title = JSON.parse(localStorage.getItem("p_info")).p_name + '介绍';
-  }
+  // if(to.name == 'productBrief'){
+  //   to.meta.title = JSON.parse(localStorage.getItem("p_info")).p_name + '介绍';
+  // }
   // if(to.name == 'subOrderA'){
   //   to.meta.title = JSON.parse(localStorage.getItem("p_info")).p_name + '提单';
   // }

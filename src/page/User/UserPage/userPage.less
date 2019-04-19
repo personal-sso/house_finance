@@ -1,6 +1,15 @@
 .user {
+  @ly_width: 100%;
+  @color-ad824b: #ad824b;
   padding-bottom: 95px;
   position: relative;
+  .ly_width {
+    width: 100%;
+  }
+  .color-ad824b {
+    color: @color-ad824b;
+    vertical-align: middle;
+  }
   [class*=van-hairline] {
     position: relative;
     background-color: #fff;
@@ -38,13 +47,13 @@
     color: #000;
   }
   .user-header {
-    height: 450px;
+    height: 495px;
     background-color: #ffffff;
     margin-bottom: 8px;
     padding: 34px 55px;
   }
   .user-wrap {
-    height: 260px;
+    min-height: 318px;
     background: linear-gradient(to right bottom,#f7643c,#fd861a);
     border-radius: 10px;
     margin-top: 26px;
@@ -85,15 +94,15 @@
     line-height: 0;
   }
   .user-com-width {
-    width: 360px;
+    width: 300px;
   }
   .user-com-line:before {
-    content: '';
-    position: absolute;
-    background: #dedcd8;
-    width: 2px;
-    height: 70px;
-    margin-left: 315px;
+    //content: '';
+    //position: absolute;
+    //background: #dedcd8;
+    //width: 2px;
+    //height: 70px;
+    //margin-left: 315px;
   }
   .van-collapse:nth-child(3n) {
     margin-bottom: 8px;
@@ -112,9 +121,25 @@
     content: ' ';
     border: none;
   }
+  .exclamatory-mark {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    background-color: #be9458;
+    display: inline-block;
+    color: #ffffff;
+    border-radius: 50%;
+    text-align: center;
+    vertical-align: middle;
+    margin-left: 10px;
+  }
+  .commission-balance {
+    font-size: 48px;
+    margin-top: 23px;
+  }
 }
 .balance {
-  margin-bottom: 60px;
+  margin-bottom: 52px;
 }
 .user>section {
   background-color: #f6f6f7;

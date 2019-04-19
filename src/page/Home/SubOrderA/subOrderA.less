@@ -128,7 +128,7 @@
 
     .photo {
       display: flex;
-      padding-top: 30px;
+      padding-top: 15px;
       flex-wrap: wrap;
 
       >h2 {
@@ -279,20 +279,23 @@
 }
 
 .fast {
-  padding-top: 30px;
+  padding-top: 20px;
 
   >h2 {
-    padding: 0 20px;
-    display: flex;
-    height: 40px;
-    font-size: 24px;
-    font-weight: normal;
-
-    >span {
-      color: #ff7c12;
-      padding-left: 30px;
-      padding-top: 2px;
+    min-height: 40px;
+    >div {
+      padding: 0 20px;
+      display: flex;
+      height: 40px;
+      font-size: 24px;
+      font-weight: normal;
+      >span {
+        color: #ff7c12;
+        padding-left: 30px;
+        padding-top: 2px;
+      }
     }
+    
   }
 
   .fast-assess {
@@ -386,4 +389,27 @@
     .van-icon {
       line-height: 90px;
     }
+}
+[v-cloak] {
+  display: none !important;
+}
+.city-list {
+  width: 80%;
+  border-radius: 10px;
+  padding-top: 30px;
+  >h2 {
+    text-align: center;
+    font-size: 28px;
+  }
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px 0;
+    li {
+      width: 33.3%;
+      text-align: center;
+      padding: 25px 10px;
+      font-size: 24px;
+    }
+  }
 }

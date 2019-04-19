@@ -2,7 +2,7 @@
   <div class="followUpProcess">
     <div class="wrap-result">
       <ul>
-        <li class="flex flex-align-center flex-justify-between">
+        <li class="flex flex-align-center flex-justify-between" v-on:click="closeAction">
           <p>沟通结果</p>
           <p><img src="../../../../assets/img/icon_rg.png" class="icon_right"></p>
         </li>
@@ -67,11 +67,35 @@
           <p class="flex-1 tr">2019-03-19 15：28</p>
         </li>
       </ul>
-
-
-
-
     </div>
+
+    <van-actionsheet
+      v-model="show"
+      title="沟通结果"
+    >
+      <ul>
+        <li class="flex flex-align-center flex-justify-between reason-action">
+          <p>电话无人接听</p>
+          <van-radio-group v-model="radioFj1" class="flex flex-align-center">
+            <van-radio name="1" checked-color="#ff8400" />
+          </van-radio-group>
+        </li>
+        <li class="flex flex-align-center flex-justify-between reason-action">
+          <p>异地客户</p>
+          <van-radio-group v-model="radioFj1" class="flex flex-align-center">
+            <van-radio name="2" checked-color="#ff8400" />
+          </van-radio-group>
+        </li>
+        <li class="flex flex-align-center flex-justify-between reason-action">
+          <p>无资金需求</p>
+          <van-radio-group v-model="radioFj1" class="flex flex-align-center">
+            <van-radio name="3" checked-color="#ff8400" />
+          </van-radio-group>
+        </li>
+      </ul>
+
+      <van-button block type="default" class="close-but" v-on:click="closeAction">关闭</van-button>
+    </van-actionsheet>
   </div>
 </template>
 
@@ -84,6 +108,17 @@
 
   export default {
     name: 'FollowUpProcess',
+    data() {
+      return {
+        show: false,
+        radioFj1: '',
+      }
+    },
+    methods: {
+      closeAction() {
+        this.show = !this.show;
+      }
+    }
   }
 </script>
 

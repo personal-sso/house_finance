@@ -65,7 +65,7 @@
         </van-swipe-item> -->
       </van-swipe>
     </div>
-    <div v-if="uToken == undefined" class="state-bar">
+    <!-- <div v-if="uToken == undefined" class="state-bar">
       <div class="not-log">
         <van-button class="logBtn" @click="goLogin" type="default">登录/注册</van-button>
         <p>加入山高房金经纪人，让赚钱变的更简单</p>
@@ -82,22 +82,27 @@
         </div>
         <van-button class="go" @click="goBank" type="default">GO</van-button>
       </div>
-    </div>
+    </div> -->
     <div class="spread ">
+      <div class="big-box">
       <div
         class="sBottom"
         v-for="(item,index) in productInfo"
-        :key="item.p_introduction[0].pid"
+        :key="item.p_introduction.pid"
       >
         <router-link :to="{name:'productBrief',params:{id:item.pid}}">
+          <div v-html="item.p_introduction.summary" class="s-text">
+          </div>
           <img
             class="images"
-            :src="item.p_introduction[0].api_path"
+            :src="item.p_introduction.api_path"
             alt=""
             @click="setProInfo(item)"
           >
         </router-link>
       </div>
+      </div>
+      <van-button type="default" @click="$router.push('/subOrderA')">快速提单</van-button>
     </div>
     <div class="nav">
       <div class="nav-title">
@@ -123,7 +128,24 @@
           </router-link>
         </li>
       </ul>
-
+      <div v-if="uToken == undefined" class="state-bar">
+      <div class="not-log">
+        <van-button class="logBtn" @click="goLogin" type="default">登录/注册</van-button>
+        <p>加入山高房金经纪人，让赚钱变的更简单</p>
+      </div>
+    </div>
+    <div v-if="uToken != undefined && isAuth == 'false'" class="state-bar">
+      <div class="not-bind">
+        <div class="cover">
+          <img src="../../../assets/img/photo.png" alt="">
+        </div>
+        <div class="text">
+          <p class="small">实名认证 > 推荐客户 > 赚取佣金</p>
+          <p class="big">完成实名认证就能赚取佣金啦</p>
+        </div>
+        <van-button class="go" @click="goBank" type="default">GO</van-button>
+      </div>
+    </div>
     </div>
     <div class="order">
       <div class="order-title">
@@ -314,6 +336,7 @@ export default {
     this.$axios.fetchPost("/getProductList?t=" + Date.now()).then(res => {
       res.data.forEach(v => {
         v.p_introduction = JSON.parse(v.p_introduction);
+        v.p_selling_point = JSON.parse(v.p_selling_point);
       });
       console.log(res.data);
       this.productInfo = res.data;

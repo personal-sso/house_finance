@@ -19,6 +19,10 @@
     },
     methods: {
       onClickLeft() {
+        if(this.$route.meta.backHome){
+          this.$router.push({name:'homePage'});
+          return;
+        }
         if(this.$router.history.current.meta.isFrom){
           this.$router.go(-2);
           return;

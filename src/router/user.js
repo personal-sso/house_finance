@@ -15,6 +15,9 @@ const Commission = () => import('../page/User/Commission/Commission.vue');
 const SharedOrders = () => import('../page/User/SharedOrders/SharedOrders.vue');
 const BankList = () => import('../page/User/bankList/bankList.vue');
 const ActivitiesInvite = () => import('../page/User/ActivitiesInvite/ActivitiesInvite.vue');
+const BusinessRoles = () => import('../page/User/BusinessRoles/BusinessRoles.vue');
+const LowerDetail = () => import('../page/User/Achievement/LowerDetail/LowerDetail.vue');
+const CommissionDetail = () => import('../page/User/Achievement/CommissionDetail/CommissionDetail.vue');
 
 export default {
   path: '/user',
@@ -112,6 +115,30 @@ export default {
     meta: {
       title: '邀请注册',
       // isLogin: true
+    }
+  }, {
+    name: 'LowerDetail',
+    path: '/user/achievement/detail',
+    component: LowerDetail,
+    meta: {
+      title: '下级详情页',
+      isLogin: true
+    },
+  }, {
+    name: 'CommissionDetail',
+    path: '/user/achievement/commission',
+    component: CommissionDetail,
+    meta: {
+      title: '佣金详情',
+      isLogin: true
+    },
+  }, {
+    name: 'BusinessRoles',
+    path: '/user/roles',
+    component: BusinessRoles,
+    meta: {
+      title: '业务角色说明',
+      isLogin: true
     }
   }, accountSetRoute, EvaluationRoute, CashCardRoute, DispatchRoute]
 }

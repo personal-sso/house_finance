@@ -15,7 +15,8 @@ export default {
       name: 'login',
       component: Login,
       meta: {
-        title: '山东高速房金'
+        title: '山东高速房金',
+        backHome:true
       }
     },
     {
@@ -23,7 +24,8 @@ export default {
       name: 'register',
       component: Register,
       meta: {
-        title: '山东高速房金'
+        title: '山东高速房金',
+        backHome:true
       }
     },
     {

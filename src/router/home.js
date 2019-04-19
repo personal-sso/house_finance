@@ -39,7 +39,7 @@ export default {
       }
     },
     {
-      path: 'subOrderA/:id',
+      path: 'subOrderA',
       name: 'subOrderA',
       component: SubOrderA,
       meta: {
@@ -104,7 +104,8 @@ export default {
           name: 'assessPage',
           component: AssessPage,
           meta: {
-            title: '房产估值'
+            title: '房产估值',
+            isLogin: true
           }
         },
         {
@@ -112,7 +113,8 @@ export default {
           name: 'assessResult',
           component: AssessResult,
           meta: {
-            title: '房产估值结果'
+            title: '房产估值结果',
+            isLogin: true
           }
         },
         {
@@ -120,7 +122,8 @@ export default {
           name: 'loading',
           component: Loading,
           meta: {
-            title: '房产估值查询中'
+            title: '房产估值查询中',
+            isLogin: true
           }
         },
         {

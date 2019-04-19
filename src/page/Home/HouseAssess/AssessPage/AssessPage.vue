@@ -110,15 +110,15 @@
           >
             <div
               slot="action"
-              @click="onSearch"
-            >搜索</div>
+              @click="closeSearch"
+            >取消</div>
           </van-search>
         </form>
         <van-button
           class="cancelBtn"
           type="button"
-          @click="closeSearch"
-        >取 消</van-button>
+          @click="onSearch"
+        >搜 索</van-button>
         <ul
           v-if="isOk"
           class="list"
@@ -187,9 +187,9 @@ export default {
       buildingId: "", //楼栋id
       numId: "", //房号id
       times: "", //估价次数
-      loading1:true,
-      loading2:true,
-      loading3:true,
+      loading1: true,
+      loading2: true,
+      loading3: true
     };
   },
   created() {
@@ -251,9 +251,9 @@ export default {
         .then(res => {
           console.log(res);
           toast.clear();
-          if(!res.data){
-              this.$toast('非常抱歉，您该房产暂时无法估价！');
-              return;
+          if (!res.data) {
+            this.$toast("非常抱歉，您该房产暂时无法估价！");
+            return;
           }
           this.$store.commit("changeAssessData", res.data);
           this.$router.push({ name: "assessResult" });
@@ -286,7 +286,7 @@ export default {
             constructionId: this.housesId,
             buildingId: this.buildingId,
             houseId: this.numId,
-            provinceId:this.cityValue[0].code
+            provinceId: this.cityValue[0].code
           },
           this.$cookie.get("token")
         )
@@ -328,7 +328,7 @@ export default {
         });
     },
     setCityName(v, id) {
-        this.loading2 = true;
+      this.loading2 = true;
       this.cityName = v;
       this.closeSearch();
       this.housesId = id;
@@ -364,7 +364,7 @@ export default {
       this.isShowHouses = false;
     },
     changeHouses(v, i) {
-        this.loading3 = true;
+      this.loading3 = true;
       console.log(v, i);
       this.tower = v;
       this.buildingId = this.indexArray[i];
