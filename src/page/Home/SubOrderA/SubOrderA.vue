@@ -406,25 +406,26 @@
       :overlay="false"
     >
       <div id="searchPage">
+        <h2>请输入您的楼盘名称</h2>
         <form action="/">
           <van-search
             v-model="searchValue"
-            placeholder="请输入搜索关键词"
+            placeholder="请输入楼盘名称"
             show-action
             shape="round"
             @search="onSearch"
           >
             <div
               slot="action"
-              @click="onSearch"
-            >搜索</div>
+              @click="closeSearch"
+            >取消</div>
           </van-search>
         </form>
         <van-button
           class="cancelBtn"
           type="button"
-          @click="closeSearch"
-        >取 消</van-button>
+          @click="onSearch"
+        >搜 索</van-button>
         <ul
           v-if="isOk"
           class="list"

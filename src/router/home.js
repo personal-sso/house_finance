@@ -12,6 +12,9 @@ const AssessResult = () => import('../page/Home/HouseAssess/AssessResult/AssessR
 const Loading = () => import('../page/Home/HouseAssess/Loading/Loading.vue');
 const AssessPage = () => import('../page/Home/HouseAssess/AssessPage/AssessPage.vue');
 const SearchPage = () => import('../page/Home/HouseAssess/SearchPage/SearchPage.vue');
+const ProductDetail = () => import('../page/Home/ProductDetail/ProductDetail.vue');
+const HurryBorrow = () => import('../page/Home/ProductDetail/HurryBorrow/HurryBorrow.vue');
+const IndustryBorrow = () => import('../page/Home/ProductDetail/IndustryBorrow/IndustryBorrow.vue');
 
 export default {
   path: '/',
@@ -135,6 +138,26 @@ export default {
           }
         }
       ]
-    }
+    },
+    {
+      path: 'productDetail',
+      name: 'productDetail',
+      component: ProductDetail,
+      children:[{
+        path:'',
+        name:'hurryBorrow',
+        component:HurryBorrow,
+        meta:{
+          title:'山高宅急贷'
+        }
+      },{
+        path:'industryBorrow',
+        name:'industryBorrow',
+        component:IndustryBorrow,
+        meta:{
+          title:'山高宅业贷'
+        }
+      }]
+    },
   ]
 }

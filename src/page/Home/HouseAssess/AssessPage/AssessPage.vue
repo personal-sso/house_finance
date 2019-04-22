@@ -100,10 +100,11 @@
       :overlay="false"
     >
       <div id="searchPage">
+        <h2>请输入您的楼盘名称</h2>
         <form action="/">
           <van-search
             v-model="searchValue"
-            placeholder="请输入搜索关键词"
+            placeholder="请输入楼盘名称"
             show-action
             shape="round"
             @search="onSearch"

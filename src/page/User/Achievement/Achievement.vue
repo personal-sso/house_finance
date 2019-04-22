@@ -30,7 +30,7 @@
       </ul>
 
       <div class="flex flex-justify-between nav-but-wrap">
-        <van-button type="default" class="nav-but">邀请</van-button>
+        <van-button type="default" class="nav-but" @click="sendInvite">邀请</van-button>
         <router-link to="/user/commission">
           <van-button type="default" class="nav-but">
             提现
@@ -61,7 +61,7 @@
       </li>
     </ul>
 
-    <div ref="achievementMescroll" class="mescroll">
+    <div ref="achievementMescroll" class="mescroll" v-bind:style="{top: this.isPc() ? pcTop : moveTop}">
       <div ref="achievementScroll" id="scrollWrap">
         <performanceList
           @showIconDescription="showIconDescription"
@@ -69,6 +69,10 @@
         />
       </div>
     </div>
+
+    <van-popup v-model="showWeChat">
+      <img src="../../../assets/img/poster/wechat.png" alt="">
+    </van-popup>
 
     <van-dialog
       v-model="show"
@@ -116,15 +120,21 @@
   import 'mescroll.js/mescroll.min.css'
   import * as achievementApi from './achievementApi';
   import performanceList from '../../../components/performanceList';
+  import * as partnerApi from '../Partner/partnerApi';
+  import { mixin } from '../../../utils/common';
 
   export default {
+    mixins: [mixin],
     name: 'Achievement',
     components: {
       performanceList,
     },
     data() {
       return {
+        pcTop: '8.32rem',
+        moveTop: '7.05333rem',
         show: false,
+        showWeChat: false,
         data: {
           myHc: '',
           myHcMobile: '',
@@ -137,10 +147,15 @@
         },
         arr: [],
         page: 0,
-        total: true
+        total: true,
+        invicode: '',
+        imageUrl: '',
+        shareUrl: window.location.href.split('#')[0]
       };
     },
     mounted() {
+      this.sendCardFuc();
+
       this.achievementMescroll = new MeScroll(this.$refs.achievementMescroll, {
         down: {
           auto: false,
@@ -203,7 +218,75 @@
             }
           })
         });
-      }
+      },
+
+      sendInvite() {
+        let nu = navigator.userAgent.toLowerCase();
+        let isWechat = nu.indexOf('micromessenger') != -1;
+        if(isWechat){
+          this.showWeChat = true;
+        }else {
+          this.$toast('请使用微信浏览器进行分享');
+        }
+      },
+
+      sendCardFuc() {
+        const self = this;
+        // if(this.isIos()){
+        //   this.shareUrl = window.location.href.split('#')[0];
+        //   console.log('iso');
+        // }
+        partnerApi.shareMyInvitation({}, this.$cookie.get('token')).then(res => {
+          if(res.code === '1') {
+            this.invicode = res.data['randomcode'];
+            this.imageUrl = res.data['imageUrl'];
+            // `http://fj.qkz88.com/#/user/invitation?invicode=${this.invicode}`
+            partnerApi.weChatConfig({url: this.shareUrl}, this.$cookie.get('token')).then(res => {
+              wx.config({
+                debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                appId: res.data.appId, // 必填，公众号的唯一标识
+                timestamp: res.data.timestamp, // 必填，生成签名的时间戳
+                nonceStr: res.data.nonceStr, // 必填，生成签名的随机串
+                signature: res.data.signature,// 必填，签名
+                jsApiList: [
+                  'checkJsApi',
+                  'onMenuShareAppMessage',
+                  'onMenuShareTimeline'
+                ] // 必填，需要使用的JS接口列表
+                // jsApiList: ['checkJsApi', 'updateAppMessageShareData', 'updateTimelineShareData']
+              });
+
+              wx.ready(function() {
+                let link = 'http://fj.qkz88.com/#/user/invitation?inventNum=' + self.invicode;
+                //分享朋友圈
+                wx.onMenuShareTimeline({
+                  title: '山高房金，经纪人轻松年赚百万的大平台', // 分享标题
+                  desc: '成为山高房金合伙人，推荐好友贷款成功即可获得约1-5万元的佣金哦~', // 分享描述
+                  link: link.split('#')[0]+'?#'+link.split('#')[1], // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                  imgUrl: self.imageUrl, // 分享图标
+                  success(data) {
+                    this.$toast({
+                      message: '分享成功',
+                    });
+                  }
+                });
+                //分享给好友
+                wx.onMenuShareAppMessage({
+                  title: '山高房金，经纪人轻松年赚百万的大平台', // 分享标题
+                  desc: '成为山高房金合伙人，推荐好友贷款成功即可获得约1-5万元的佣金哦~', // 分享描述
+                  link: link.split('#')[0]+'?#'+link.split('#')[1], // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                  imgUrl: self.imageUrl, // 分享图标
+                  success(data) {
+                    this.$toast({
+                      message: '分享成功',
+                    });
+                  }
+                })
+              });
+            });
+          }
+        });
+      },
     }
   }
 </script>

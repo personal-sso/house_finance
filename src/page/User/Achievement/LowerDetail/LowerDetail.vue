@@ -12,7 +12,7 @@
       <div class="flex flex-align-center">
         <p class="mr-33">下级名称</p>
         <van-field class="junior-name" v-model="value"/>
-        <van-button type="default" class="confirm-but" v-on:click="refresh(undefined)">确定</van-button>
+        <van-button type="default" class="confirm-but" v-on:click="downCallback()">确定</van-button>
       </div>
     </div>
 
@@ -41,20 +41,7 @@
       </ul>
     </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div ref="LowerMescroll" class="mescroll">
+    <div ref="LowerMescroll" class="mescroll" v-bind:style="{top: this.isPc() ? pcTop : moveTop}">
       <div ref="LowerScroll" id="scrollWrap">
         <performanceList
           @showIconDescription="showIconDescription"
@@ -62,39 +49,6 @@
         />
       </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     <van-popup
       v-model="show"
@@ -158,14 +112,18 @@
   import 'mescroll.js/mescroll.min.css'
   import * as achievementApi from '../achievementApi';
   import performanceList from '../../../../components/performanceList';
+  import { mixin } from '../../../../utils/common';
 
   export default {
+    mixins: [mixin],
     name: 'LowerDetail',
     components: {
       performanceList,
     },
     data() {
       return {
+        pcTop: '4.34667rem',
+        moveTop: '3.08rem',
         show2: false,
         startTimeValue: '',
         endTimeValue: '',

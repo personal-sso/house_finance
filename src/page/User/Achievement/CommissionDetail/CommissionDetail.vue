@@ -8,7 +8,7 @@
       <p>佣金(元)</p>
     </header>
 
-    <div ref="mescroll" class="mescroll">
+    <div ref="mescroll" class="mescroll" v-bind:style="{top: this.isPc() ? pcTop : moveTop}">
       <div ref="scrollWrap" id="scrollWrap">
         <ul class="flex flex-align-center flex-justify-center main-ul-warp" v-for="(obj, index) in newArr" :key="index">
           <li class="wd-175">{{obj.p_name}}</li>
@@ -32,11 +32,15 @@
   import * as achievementApi from '../achievementApi';
   import MeScroll from 'mescroll.js';
   import 'mescroll.js/mescroll.min.css'
+  import { mixin } from '../../../../utils/common';
 
   export default {
+    mixins: [mixin],
     name: 'CommissionDetail',
     data() {
       return {
+        pcTop: '2.64rem',
+        moveTop: '1.37333rem',
         page: 0,
         total: true,
         mescroll: null,
